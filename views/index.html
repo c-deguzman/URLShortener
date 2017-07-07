@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>API Reference: URL Shortening Microservice</title>
+  
+  
+  <link rel="stylesheet prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
+      <link rel="stylesheet" href="style.css">
+
+  
+</head>
+
+<body>
+  <body>
+  <h1> <u> API Reference: URL Shortening Microservice  </u> </h1>
+  <p> URL Shortening Microservice- used for shortening urls and calling on shortened urls. <br> Two classes of call:
+    <ul> 
+      <li> <a href="#shorten"> a shortening request </a> </li>
+      <li> <a href="#retrieve"> a shortened retrieval </a> </li>
+    </ul>
+  </p>
+
+  <h2 id="shorten"> Shortening Request </h2>
+  <p> A shortening request is based upon up to three parameters, which may be given in any order </p>
+
+<code>https://misty-iris.glitch.me/serv?<b>base</b>=mybase&<b>desired-short</b>=shorty&<b>override</b>=true </code>
+
+  <ul> 
+    <li> <b>base</b> - url sent in that will be shortened. Unless override is active, must be in proper http or https format </li>
+    <li> <b>desired-short</b> - (optional) (case-sensitive) if available, shortened key will be <b>desired-short</b>, error if otherwise. MUST contain at least one alphabetical character</li>
+    <li id="override"> <b>override</b> - (optional) if set to 'true', will ignore url format checking. Note: your shortened url may not redirect properly if base is not a proper url </li>
+  </ul>
+
+  <table>
+    <tr> 
+      <th> Example Call </th>
+      <th> Example Result </th>
+    </tr>
+    <tr>
+      <td> <code> https://misty-iris.glitch.me/serv?desired-short=red&base=https://www.reddit.com </code> </td>
+      <td> <code> {"short":"https://misty-iris.glitch.me/short/red","base":"https://www.reddit.com"} </code> </td>
+    </tr>
+    <tr>
+      <td> <code> https://misty-iris.glitch.me/serv?base=https://www.reddit.com </code> </td>
+      <td> <code> {"short":"https://misty-iris.glitch.me/short/15","base":"https://www.reddit.com"} </code> </td>
+    </tr>
+    <tr>
+      <td> <code> https://misty-iris.glitch.me/serv?base=httpqqr35s://www.reddit.com  </code> </td>
+      <td> <code> {"error":"base url not formatted correctly"} </code>  </td>
+    </tr>
+    <tr>
+      <td> <code> https://misty-iris.glitch.me/serv?base=httpqqr35s://www.reddit.com&override=true </code> </td>
+      <td> <code> {"short":"https://misty-iris.glitch.me/short/10","base":"httpqqr35s:/www.reddit.com"} </code>  </td>
+    </tr>
+    <tr>
+      <td> <code> https://misty-iris.glitch.me/serv?base=https://www.reddit.com&desired-short=red</code> </td>
+      <td> <code> {"error":"name already taken"} </code>  </td>
+    </tr>
+  </table>
+
+  <h2 id="retrieve"> Shortening Retrieval </h2>
+  <p> A retrieval request is based upon the provided key. </p>
+
+  <code>https://misty-iris.glitch.me/short/<b>11</b> </code>
+<p> If key is found, page will redirect to proper site (if possible, see *<a href="#override">override</a>), otherwise will raise error </p>
+
+</body>
+  
+  
+</body>
+</html>
